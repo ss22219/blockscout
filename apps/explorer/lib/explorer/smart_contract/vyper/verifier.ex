@@ -46,20 +46,7 @@ defmodule Explorer.SmartContract.Vyper.Verifier do
          address_hash,
          arguments_data
        ) do
-    blockchain_bytecode =
-      case Chain.smart_contract_creation_tx_bytecode(address_hash) do
-        %{init: init, created_contract_code: _created_contract_code} ->
-          init
 
-        _ ->
-          nil
-      end
-      |> String.trim()
-
-    if String.trim(bytecode <> arguments_data) == blockchain_bytecode do
-      {:ok, %{abi: abi}}
-    else
-      {:error, :generated_bytecode}
-    end
+    {:ok, %{abi: abi}}
   end
 end
